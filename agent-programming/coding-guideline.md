@@ -12,6 +12,9 @@ For agents and humans!
 * Do not use language magic tricks unless you really need to
 * Keep in mind often the best code is no code at all
 * Make sure your code is idiomatic for the language you are writing it in
+* Work should always be done on a branch, do not write and commit code on the main branch. If using a gitflow style workflow do not work on deployment branches
+* When your code is ready a PR should be raised, this should be reviewed even if just using agents to review
+* Any comments on the PR should be addressed or responded to and resolved before merging
 
 ## Tooling
 * Don't unneccsarily introduce new tools to the project, use what is already there first, introduce new tools in separate branches/PRs

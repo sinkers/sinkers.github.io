@@ -25,7 +25,7 @@
 
 Currently the repo is a bit of a mess and there are people working on multiple parts of the project at the same time, but it is not easy to integrate and test. As the project is a Next.js webapp, the likely best path forward is going to be to properly structure the project as a monorepo.
 
-Check here for some additional info: https://medium.com/@omar.shiriniani/mastering-next-js-monorepos-a-comprehensive-guide-15f59f5ef615
+Check here for some additional info: [https://medium.com/@omar.shiriniani/mastering-next-js-monorepos-a-comprehensive-guide-15f59f5ef615]
 
 ### What to Do
 
