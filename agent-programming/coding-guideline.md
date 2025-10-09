@@ -6,6 +6,7 @@ For agents and humans!
 * Do you have a good definition of what needs to be done?
 * If someone has given you a one line Jira ticket that doesn't have enough detail ask for more information
 * Is there a clear definition of what defines this task as being done?
+* For new repositories start with only a very basic scaffold before starting to work on branches and getting PRs reviewed
 
 ## Writing
 * Keep code simple and easy to read
@@ -16,9 +17,16 @@ For agents and humans!
 * When your code is ready a PR should be raised, this should be reviewed even if just using agents to review
 * Any comments on the PR should be addressed or responded to and resolved before merging
 
+## Code Quality
+* Make sure there is appropriate linting applied for the language and this is run via CI
+* Make sure that there is a security scan running in CI
+* Run a complexity check on each PR and check that the new code is not making the codebase overly complex
+* Use other agents for reviewing PRs
+
 ## Tooling
 * Don't unneccsarily introduce new tools to the project, use what is already there first, introduce new tools in separate branches/PRs
 * Make sure that any package configurations e.g. requirements.txt, packages.json are updated if new packages are added
+* Include a Makefile that covers all the basics such as build, test and install
 
 ## Testing
 * Working out how the code is going to be tested before writing and if practical create some tests cases that can define what is done
