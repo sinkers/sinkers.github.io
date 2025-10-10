@@ -5,6 +5,7 @@ For agents and humans!
 ## General
 * Do you have a good definition of what needs to be done?
 * If someone has given you a one line Jira ticket that doesn't have enough detail ask for more information
+* If writing a Jira ticket make it a good one, just having a title is not a good Jira ticket see https://github.com/sinkers/sinkers.github.io/blob/main/agent-programming/writing-a-good-jira-ticket.md
 * Is there a clear definition of what defines this task as being done?
 * For new repositories start with only a very basic scaffold before starting to work on branches and getting PRs reviewed
 
