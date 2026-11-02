@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Andrew Sinclair · sinkers</title>
+<meta name="description" content="Andrew Sinclair (sinkers): one person running many software projects with AI coding agents. Projects, devlog and notes.">
+<meta property="og:title" content="Andrew Sinclair · sinkers">
+<meta property="og:description" content="One person running many software projects with AI coding agents. Projects, devlog and notes.">
+<meta property="og:url" content="https://sinkers.github.io/">
+<meta property="og:type" content="website">
+<link rel="alternate" type="application/rss+xml" title="sinkers devlog" href="https://sinkers.github.io/devlog/feed.xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#fbfbfa;--surface:#ffffff;--ink:#1a1d22;--muted:#6a707c;--line:#e4e5e8;--code:#f1f2f4;--accent:#3d43a0;
+  --c-dc:#1f8a5b;--c-cv:#c0612b;--c-vox:#7a3fb8;--c-team:#2b6fc0;
+  --shadow:0 1px 2px rgba(20,22,30,.04),0 8px 24px -12px rgba(20,22,30,.12);
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#121417;--surface:#171a1e;--ink:#e6e8ec;--muted:#9aa1ad;--line:#2a2f37;--code:#1c2026;--accent:#9ea3ee;
+  --c-dc:#4fc58d;--c-cv:#ec925c;--c-vox:#b48bec;--c-team:#6eaaf0;
+  --shadow:0 1px 2px rgba(0,0,0,.3),0 8px 24px -12px rgba(0,0,0,.5);
+}}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.65 "IBM Plex Sans",ui-sans-serif,-apple-system,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:var(--accent);text-underline-offset:3px;text-decoration-thickness:1px}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+.mono{font-family:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace}
+
+/* header */
+header.site{display:flex;justify-content:space-between;align-items:center;gap:16px;padding:22px 0;border-bottom:1px solid var(--line)}
+header.site .name{font-weight:600;color:var(--ink);text-decoration:none;font-size:18px}
+header.site nav{display:flex;gap:18px;font-size:15px;flex-wrap:wrap}
+header.site nav a{color:var(--muted);text-decoration:none}
+header.site nav a:hover{color:var(--ink)}
+
+/* hero */
+.hero{padding:72px 0 56px;position:relative}
+.hero .kicker{font-size:13px;color:var(--muted);letter-spacing:.06em;margin-bottom:14px}
+.hero h1{font-size:clamp(34px,5.4vw,56px);line-height:1.08;letter-spacing:-.02em;margin:0 0 20px;max-width:21ch;font-weight:700}
+.hero h1 em{font-style:normal;color:var(--accent)}
+.hero p{font-size:19px;color:var(--muted);max-width:60ch;margin:0 0 28px}
+.cta{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:10px 18px;border-radius:10px;font-weight:600;font-size:15px;text-decoration:none;border:1px solid var(--line);color:var(--ink);background:var(--surface);transition:border-color .15s,transform .15s}
+.btn:hover{border-color:var(--muted);transform:translateY(-1px)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg)}
+.btn svg{width:16px;height:16px}
+
+/* sections */
+section{padding:44px 0}
+.sec-head{display:flex;justify-content:space-between;align-items:baseline;gap:16px;margin-bottom:22px;flex-wrap:wrap}
+.sec-head h2{font-size:14px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin:0;font-weight:600}
+.sec-head a{font-size:15px;font-weight:600;text-decoration:none}
+
+/* devlog */
+.posts{display:grid;gap:16px}
+.post{display:grid;grid-template-columns:200px minmax(0,1fr);gap:20px;align-items:center;padding:16px;border:1px solid var(--line);border-radius:14px;background:var(--surface);text-decoration:none;color:inherit;box-shadow:var(--shadow);transition:border-color .15s,transform .15s}
+.post:hover{border-color:var(--accent);transform:translateY(-2px)}
+.post img{width:100%;aspect-ratio:1200/630;object-fit:cover;border-radius:8px;background:var(--code);display:block}
+.post .t{font-weight:600;font-size:20px;line-height:1.3}
+.post .s{color:var(--muted);font-size:15px;margin-top:6px}
+.post .m{color:var(--muted);font-size:13px;margin-top:8px}
+.devlog-empty{padding:22px;border:1px dashed var(--line);border-radius:14px;color:var(--muted)}
+
+/* projects */
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.card{--c:var(--accent);position:relative;display:flex;flex-direction:column;padding:26px 26px 22px;border:1px solid var(--line);border-radius:16px;background:var(--surface);box-shadow:var(--shadow);overflow:hidden;transition:border-color .2s,transform .2s}
+.card::before{content:"";position:absolute;inset:0 0 auto 0;height:4px;background:var(--c)}
+.card:hover{border-color:color-mix(in srgb,var(--c) 55%,var(--line));transform:translateY(-2px)}
+.card .icon{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;background:color-mix(in srgb,var(--c) 14%,transparent);color:var(--c);margin-bottom:14px}
+.card .icon svg{width:22px;height:22px}
+.card .area{font-size:12.5px;color:var(--c);letter-spacing:.04em;text-transform:uppercase;font-weight:500}
+.card h3{font-size:24px;margin:4px 0 4px;letter-spacing:-.01em;line-height:1.2}
+.card .lede{font-weight:500;margin:0 0 10px}
+.card p{margin:0 0 12px;color:var(--muted);font-size:15.5px}
+.card .tags{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 16px}
+.tag{font-size:12.5px;border:1px solid var(--line);border-radius:99px;padding:1px 10px;color:var(--muted)}
+.card .links{margin-top:auto;display:flex;flex-wrap:wrap;gap:8px 18px;font-size:15px;font-weight:600;padding-top:14px;border-top:1px solid var(--line)}
+.card .links a{text-decoration:none;color:var(--c)}
+.card .links a:hover{text-decoration:underline}
+.card .writing{font-size:14px;color:var(--muted);margin:-4px 0 14px}
+.card .writing a{color:var(--ink)}
+.dc{--c:var(--c-dc)}.cv{--c:var(--c-cv)}.vox{--c:var(--c-vox)}.team{--c:var(--c-team)}
+
+/* smaller things */
+.list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 32px}
+.item{display:block;padding:14px 0;border-top:1px solid var(--line);text-decoration:none;color:inherit}
+.item .n{font-weight:600;font-size:16px;color:var(--ink)}
+.item .n .mono{font-size:14px;color:var(--muted);font-weight:400;margin-left:6px}
+.item .d{color:var(--muted);font-size:14.5px;margin-top:2px}
+.item:hover .n{color:var(--accent)}
+.group-label{grid-column:1/-1;font-size:13px;color:var(--muted);margin:18px 0 6px;font-weight:600}
+.group-label:first-child{margin-top:0}
+
+footer{border-top:1px solid var(--line);margin-top:40px;padding:28px 0 48px;color:var(--muted);font-size:14px;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+footer a{color:var(--muted)}
+
+@media (max-width:760px){
+  .grid,.list{grid-template-columns:minmax(0,1fr)}
+  .post{grid-template-columns:minmax(0,1fr)}
+  .hero{padding:48px 0 36px}
+  .wrap{padding:0 16px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="site">
+  <a class="name" href="/">sinkers</a>
+  <nav aria-label="Sections">
+    <a href="#devlog">Devlog</a>
+    <a href="#projects">Projects</a>
+    <a href="#notes">Notes</a>
+    <a href="https://github.com/sinkers">GitHub</a>
+  </nav>
+</header>
+
+<main>
+<div class="hero">
+  <div class="kicker mono">Andrew Sinclair · @sinkers</div>
+  <h1>Building a lot of things, <em>with AI agents</em> doing the typing.</h1>
+  <p>One person running many software projects with AI coding agents, across data centre engineering, computer vision, voice and the tooling to run it all. The devlog has the write-ups; the repos have the code and the current state of each project.</p>
+  <div class="cta">
+    <a class="btn primary" href="https://sinkers.github.io/devlog/">Read the devlog</a>
+    <a class="btn" href="#projects">See the projects</a>
+    <a class="btn" href="https://github.com/sinkers" aria-label="GitHub profile">
+      <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+      GitHub
+    </a>
+  </div>
+</div>
+
+<section id="devlog">
+  <div class="sec-head">
+    <h2>Latest from the devlog</h2>
+    <a href="https://sinkers.github.io/devlog/articles/">All articles →</a>
+  </div>
+  <div class="posts" id="posts">
+    <a class="devlog-empty" href="https://sinkers.github.io/devlog/">Notes from building things, with links to the code. Read the devlog →</a>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="sec-head">
+    <h2>Projects</h2>
+    <a href="https://github.com/sinkers?tab=repositories">All repositories →</a>
+  </div>
+
+  <div class="grid">
+
+    <article class="card dc" data-project="sd-dc">
+      <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="6" rx="1.5"/><rect x="3" y="15" width="18" height="6" rx="1.5"/><path d="M7 6h.01M7 18h.01M11 6h6M11 18h6M12 9v6"/></svg></div>
+      <div class="area mono">Data centre design</div>
+      <h3>SD-DC</h3>
+      <p class="lede">An agentic stack for designing data centres.</p>
+      <p>Today a data centre is sized, routed, costed and simulated in a dozen tools that don't talk to each other, and people carry the numbers between them. SD-DC treats each of those steps as a tool call an agent can make: cable sizing, tray and pipe routing, parametric CAD, CFD thermals and a live digital twin. Every result shows its working and gets checked by running it.</p>
+      <p>Its shared model of the building is <a href="https://sinkers.github.io/industroml/">IndustroML</a>: one text format for containers, assets, interfaces and connections across electrical, mechanical, data and control.</p>
+      <div class="tags"><span class="tag">AS/NZS 3008</span><span class="tag">FreeCAD</span><span class="tag">OpenFOAM</span><span class="tag">MCP</span></div>
+      <div class="writing" hidden></div>
+      <div class="links">
+        <a href="https://sinkers.github.io/sd-dc/">Project page</a>
+        <a href="https://github.com/sinkers/sd-dc">Repo</a>
+        <a href="https://github.com/sinkers/industroml">IndustroML</a>
+      </div>
+    </article>
+
+    <article class="card cv" data-project="cvkit">
+      <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-7 10-7 10 7 10 7-3.6 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg></div>
+      <div class="area mono">Computer vision</div>
+      <h3>cvkit</h3>
+      <p class="lede">Cameras that tell you about the things that matter.</p>
+      <p>A multi-camera streaming and AI toolkit. Point it at security cameras and it flags what you care about: a car or person you don't recognise, an animal, smoke. A thin edge agent on the local network does motion detection; heavier vision work runs off the ingest path, and synthetic footage keeps the tests independent of real cameras.</p>
+      <div class="tags"><span class="tag">OpenCV / CUDA</span><span class="tag">NATS</span><span class="tag">Go</span><span class="tag">Python</span></div>
+      <div class="writing" hidden></div>
+      <div class="links">
+        <a href="https://github.com/cvkitio/cvkitio">Overview repo</a>
+        <a href="https://github.com/cvkitio">All components</a>
+      </div>
+    </article>
+
+    <article class="card vox" data-project="voxhelm">
+      <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v4M8 22h8"/></svg></div>
+      <div class="area mono">Voice agents</div>
+      <h3>Voxhelm</h3>
+      <p class="lede">Talk to your AI agent, out loud.</p>
+      <p>A voice app for AI agents. Create an agent, give it a face and a voice, then call it and just talk: it answers in real time with a live transcript, and you can switch to text chat when you can't speak. Agents are hosted for you, each in its own container, so there's nothing to install or keep running.</p>
+      <div class="tags"><span class="tag">Real-time speech</span><span class="tag">Flutter</span><span class="tag">OpenClaw</span></div>
+      <div class="writing" hidden></div>
+      <div class="links">
+        <a href="https://voxhelm.com">voxhelm.com</a>
+        <a href="https://github.com/voxhelm">GitHub</a>
+      </div>
+    </article>
+
+    <article class="card team" data-project="teamaicoder">
+      <div class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 9h20M6 13l3 2-3 2M12 17h5"/></svg></div>
+      <div class="area mono">Developer tooling</div>
+      <h3>TeamAICoder</h3>
+      <p class="lede">A desktop workbench for running many projects with AI coding agents.</p>
+      <p>One window per project, organised by stage of the lifecycle: ideas, design, plan, build, test, deploy and operate. Each stage holds tabs that can be files, terminals or embedded web pages, so Claude Code or Codex runs in one tab with the spec beside it and the project board in the next. Open source.</p>
+      <div class="tags"><span class="tag">Electron</span><span class="tag">xterm.js</span><span class="tag">Markdown-first</span></div>
+      <div class="writing" hidden></div>
+      <div class="links">
+        <a href="https://github.com/teamaicoder/teamai-desktop">Repo</a>
+        <a href="https://github.com/teamaicoder">GitHub org</a>
+      </div>
+    </article>
+
+  </div>
+</section>
+
+<section id="more">
+  <div class="sec-head">
+    <h2>Smaller tools and experiments</h2>
+  </div>
+  <div class="list">
+    <div class="group-label">Hardware and power</div>
+    <a class="item" href="https://github.com/sinkers/gpu-power-lab"><div class="n">gpu-power-lab</div><div class="d">Characterises GPU power draw and transients under controlled synthetic workloads.</div></a>
+    <a class="item" href="https://github.com/sinkers/map3drelief"><div class="n">map3drelief</div><div class="d">Turns a patch of geographic coordinates into an STL relief for 3D printing.</div></a>
+    <a class="item" href="https://github.com/sinkers/miner-cli"><div class="n">miner-cli</div><div class="d">A small CLI for querying bitcoin miners.</div></a>
+    <a class="item" href="https://github.com/sinkers/beneteau-f45-display"><div class="n">beneteau-f45-display</div><div class="d">A custom LCD display to replace the factory one on a yacht's switch panel.</div></a>
+
+    <div class="group-label">Agents and LLMs</div>
+    <a class="item" href="https://github.com/sinkers/model-rank"><div class="n">model-rank</div><div class="d">Benchmarks LLMs on latency, tokens and cost as a voice-agent backend.</div></a>
+    <a class="item" href="https://github.com/sinkers/agent-guidelines"><div class="n">agent-guidelines</div><div class="d">Coding guidelines for a workforce of AI coding agents.</div></a>
+    <a class="item" href="https://github.com/sinkers/openclaw-dev-team"><div class="n">openclaw-dev-team</div><div class="d">A ready-to-deploy OpenClaw agent team: sysadmin, product, dev and DevOps.</div></a>
+    <a class="item" href="https://github.com/sinkers/agent-bank"><div class="n">agent-bank</div><div class="d">A central repository and API for storing agent configs.</div></a>
+  </div>
+</section>
+
+<section id="notes">
+  <div class="sec-head">
+    <h2>Notes</h2>
+  </div>
+  <div class="list">
+    <div class="group-label">Programming and dev team management</div>
+    <a class="item" href="agent-programming/writing-a-good-jira-ticket.html"><div class="n">Writing a good Jira ticket</div><div class="d">What a ticket needs so a person or an agent can pick it up and finish it.</div></a>
+    <a class="item" href="agent-programming/coding-guideline.html"><div class="n">Coding guidelines</div><div class="d">The house rules for code written by the agent team.</div></a>
+    <div class="group-label">IoT</div>
+    <a class="item" href="iot/vfd-programming.html"><div class="n">VFD programming for software developers</div><div class="d">Variable frequency drives from the software side, with a Python control example.</div></a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <span>Andrew Sinclair · <a href="https://github.com/sinkers">github.com/sinkers</a></span>
+  <span><a href="https://sinkers.github.io/devlog/">Devlog</a> · <a href="https://sinkers.github.io/devlog/feed.xml">RSS</a></span>
+</footer>
+
+</div>
+
+<script>
+// Devlog posts come from the devlog's own index, so this page never needs editing when a post goes up.
+(function(){
+  var esc=function(s){return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];});};
+  var fmt=function(d){try{return new Date(d+"T00:00:00").toLocaleDateString("en-AU",{day:"numeric",month:"short",year:"numeric"});}catch(e){return d;}};
+  fetch("https://sinkers.github.io/devlog/articles.json").then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(list){
+    if(!Array.isArray(list)||!list.length)return;
+    list.sort(function(a,b){return (b.date||"").localeCompare(a.date||"");});
+    document.getElementById("posts").innerHTML=list.slice(0,3).map(function(p){
+      var venue=p.venue&&p.venue!=="devlog"?" · on "+esc(p.venue):"";
+      return '<a class="post" href="'+esc(p.url)+'">'+
+        (p.hero?'<img src="'+esc(p.hero)+'" alt="" loading="lazy">':'<span></span>')+
+        '<div><div class="t">'+esc(p.title)+'</div><div class="s">'+esc(p.summary)+'</div>'+
+        '<div class="m mono">'+esc(fmt(p.date))+(p.project?" · "+esc(p.project):"")+venue+'</div></div></a>';
+    }).join("");
+    // Link each project card to its latest write-up, if there is one.
+    document.querySelectorAll(".card[data-project]").forEach(function(card){
+      var key=card.getAttribute("data-project").toLowerCase();
+      var mine=list.filter(function(p){return (p.project||"").toLowerCase()===key;});
+      if(!mine.length)return;
+      var w=card.querySelector(".writing");
+      w.innerHTML='Latest write-up: <a href="'+esc(mine[0].url)+'">'+esc(mine[0].title)+'</a>'+(mine.length>1?' (+'+(mine.length-1)+' more)':'');
+      w.hidden=false;
+    });
+  }).catch(function(){});
+})();
+</script>
+</body>
+</html>
