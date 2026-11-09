@@ -1,0 +1,8 @@
+# Checks the generated files are current, audits the live site after Pages
+# deploys, and pings IndexNow with the pages this push changed.
+name: sitekit
+on: { push: { branches: [main] } }
+jobs:
+  site:
+    uses: teamaicoder/sitekit/.github/workflows/site.yml@v1
+    with: { dir: ., url: "https://sinkers.github.io" }

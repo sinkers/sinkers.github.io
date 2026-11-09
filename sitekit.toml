@@ -1,0 +1,10 @@
+[site]
+product     = "sinkers"
+name        = "Andrew Sinclair · sinkers"
+url         = "https://sinkers.github.io"
+description = "Andrew Sinclair (sinkers): one person running many software projects with AI coding agents. Projects, devlog and notes."
+type        = "WebSite"
+author      = "Andrew Sinclair"
+ai_training = "allow"
+# Project sites served under this host; crawlers only read robots.txt at the root.
+sitemaps    = ["https://sinkers.github.io/devlog/sitemap.xml", "https://sinkers.github.io/sd-dc/sitemap.xml"]
